@@ -10,6 +10,9 @@ deadparrot_picture.click()
 time.sleep(0.2)
 unauth = driver.find_element(By.CSS_SELECTOR, '.UnauthActionBox__close')
 unauth.click()
+time.sleep(1)
+driver.save_screenshot('dead_parrot.png')
+driver.quit()
 
 
 
