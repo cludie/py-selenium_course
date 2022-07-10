@@ -1,33 +1,30 @@
-import math
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-def calc(x):
-  return str(math.log(abs(12*math.sin(int(x)))))
 
 try:
+    link = 'http://suninjuly.github.io/selects1.html'
     path = 'C:\\Users\\cludie\\PycharmProjects\\stepik_py-selenium\\drivers\\chromedriver.exe'
-    link = 'http://suninjuly.github.io/get_attribute.html'
     driver = webdriver.Chrome(path)
     driver.get(link)
+    result = int(driver.find_element(By.ID, 'num1').text) + int(driver.find_element(By.ID, 'num2').text)
 
-    treasure = driver.find_element(By.ID, 'treasure')
-    treauser_value = treasure.get_attribute('valuex')
-    result = calc(int(treauser_value))
+    dropdown_list = driver.find_elements(By.CSS_SELECTOR, 'select option')
+    dropdown_list_values = []
+    del dropdown_list[0]
 
-    input = driver.find_element(By.ID, 'answer')
-    input.send_keys(result)
-
-    checkbox = driver.find_element(By.CSS_SELECTOR, '[type="checkbox"]')
-    checkbox.click()
-
-    radio = driver.find_element(By.CSS_SELECTOR, '[value="robots"]')
-    radio.click()
-
-    submit = driver.find_element(By.CSS_SELECTOR, 'button.btn')
-    submit.click()
+    for i in range(len(dropdown_list)):
+        dropdown_list_values.append(dropdown_list[i].get_attribute('value'))
+        dropdown_list_values[i] = int(dropdown_list_values[i])
+        if dropdown_list_values[i] == result:
+            dropdown = driver.find_element(By.ID, 'dropdown')
+            dropdown.click()
+            dropdown_list[i].click()
+            submit = driver.find_element(By.CSS_SELECTOR, 'button.btn')
+            submit.click()
+            break
 
 finally:
-    time.sleep(3)
+    time.sleep(10)
     driver.quit()
