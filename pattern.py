@@ -3,9 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 try:
-    link =
+    link = ''
     path = 'C:\\Users\\cludie\\PycharmProjects\\stepik_py-selenium\\drivers\\chromedriver.exe'
     driver = webdriver.Chrome(path)
+    driver.implicitly_wait(5)
     driver.get(link)
 
 
